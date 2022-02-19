@@ -32,3 +32,17 @@ footer {
 .form-card {
     margin: auto 15rem;
 }
+
+hr {
+    border: solid black 1px;
+    height: 1px;
+    margin: inherit;
+}
+
+.popup-menu {
+    display: none;
+}
+
+.is-showing > .popup-menu {
+    display: block;
+}

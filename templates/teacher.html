@@ -1,0 +1,93 @@
+{% extends 'user.html' %}
+
+{% block title %}Professor{% endblock %}
+
+{% block content %}
+<div class="is-flex is-flex-direction-row is-justify-content-space-between">
+    <h1 class="title">Your Teacher Assistiants Positions</h1>
+    <a class="button is-info" href="{{ url_for('teacher_page.position') }} ">Create TA Position</a>
+</div>
+<hr>
+
+{% for position in positions %}
+<div class="section">
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title">
+                {{ position['course']}}
+            </p>
+        </header>
+        <div class="card-content">
+            <div class="is-flex is-flex-direction-row is-justify-content-space-between">
+                <div>
+                    <strong>Professor</strong>
+                    <p>{{ position['fname'] }} {{ position['lname'] }}</p>
+                </div>
+                <div>
+                    <strong>Email</strong>
+                    <p>{{ position['email'] }}</p>
+                </div>
+                <div>
+                    <strong>Location</strong>
+                    <p>{{ position['location'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup">
+            <button class="button has-text-centered" aria-haspopup="true" aria-controls="dropdown-menu"
+                style="min-width: 100%;">
+                <span class="popup-text">Show More</span>
+                <span class="icon is-small">
+                    <i class="popup-icon fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+            </button>
+            <div class="popup-menu">
+                <div class="card-content">
+                    <div class="is-flex is-flex-direction-row is-justify-content-space-between">
+                        <div>
+                            <strong>Start Time</strong>
+                            <time datetime="20:20">{{ position['startTime'] }}</time>
+                        </div>
+                        <div>
+                            <strong>End Time</strong>
+                            <time datetime="20:20">{{ position['endTime'] }}</time>
+                        </div>
+                    </div>
+                    <div style="white-space: pre-line;">
+                        {{ position['description'].decode() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<script>
+    //DOMContentLoaded - it fires when initial HTML document has been completely loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        // querySelector - it returns the element within the document that matches the specified selector
+        var popup = document.querySelectorAll('.popup').forEach(item => {
+            item.addEventListener('click', function (event) {
+
+                event.stopPropagation();
+
+                item.classList.toggle('is-showing');
+                buttonText = item.querySelector('.popup-text');
+                buttonIcon = item.querySelector('.popup-icon');
+
+                if (buttonText.textContent == 'Show Less') {
+                    buttonText.textContent = 'Show More';
+                    buttonIcon.className = "popup-icon fas fa-angle-down";
+                } else {
+                    buttonText.textContent = 'Show Less';
+                    buttonIcon.className = "popup-icon fas fa-angle-up";
+                }
+            });
+        });
+    });        
+</script>
+</div>
+</div>
+{% endblock %}

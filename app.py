@@ -6,6 +6,7 @@ import config
 from backend.login import login_page
 from backend.register import register_page
 from backend.student import student_page
+from backend.teacher import teacher_page
 
 UPLOAD_FOLDER = './resumes'
 
@@ -15,6 +16,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.register_blueprint(login_page)
 app.register_blueprint(register_page)
 app.register_blueprint(student_page)
+app.register_blueprint(teacher_page)
 
 @app.route('/')
 def index():
@@ -27,11 +29,11 @@ def index():
     type = decoded_token['type']
 
     if type == 'student':
-        return redirect(url_for('student_account'))
+        return redirect(url_for('student_page.student'))
     elif type == 'professor':
-        return redirect(url_for('account/professor'))
+        return redirect(url_for('teacher_page.teacher'))
     else:
-        return  redirect(url_for('account/admin')) 
+        return  redirect(url_for('admin_page.admin')) 
 
 if __name__ == '__main__':
     config.init()

@@ -23,8 +23,12 @@ def login():
 
             token = backend.crypt.encode_jwt(uid, fname, type)
 
-            resp = make_response(redirect('/account/student'))
-            resp.set_cookie('jwt', token)
+            if type == 'student':
+                resp = make_response(redirect(url_for('student_page.student')))
+                resp.set_cookie('jwt', token)
+            elif type == 'professor':
+                resp = make_response(redirect(url_for('teacher_page.teacher')))
+                resp.set_cookie('jwt', token)
 
             return resp
         else:

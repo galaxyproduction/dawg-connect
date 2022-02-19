@@ -1,0 +1,94 @@
+{% extends 'user.html' %}
+
+{% block title %}Professor{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+    {% if error %}
+    <article class="message is-danger">
+        <div class="message-header">
+            <p>Error</p>
+            <button class="delete" aria-label="delete"></button>
+        </div>
+        <div class="message-body">
+            {{ error }}
+        </div>
+    </article>
+    {% endif %}
+    <form method="post">
+        <div class="column is-centered">
+            <h1 class="title">Create Position</h1>
+            <div class="field is-horizontal">
+                <div class="field-body">
+                    <div class="field">
+                        <label class="label">Course Name</label>
+                        <div class="control is-expanded has-icons-left">
+                            <input class="input" type="text" placeholder="BIOL" name="cname" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-book"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Course Number</label>
+                        <div class="control is-expanded has-icons-left">
+                            <input class="input" type="text" placeholder="1101" name="cnum" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-book-open"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Location</label>
+                <div class="control is-expanded has-icons-left">
+                    <input class="input" type="text" name="location" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-map"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field-body">
+                <div class="field">
+                    <label class="label">Class Start Time</label>
+                    <div class="control is-expanded has-icons-left">
+                        <input class="input" type="time" placeholder="2:00" name="startTime" required>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-clock"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Class End Time</label>
+                    <div class="control is-expanded has-icons-left">
+                        <input class="input" type="time" placeholder="3:15" name="endTime" required>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-clock"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <label class="label">TA Position Description</label>
+                    <textarea class="textarea is-large" placeholder="Description of position..." name="description" required></textarea>
+                </div>
+            </div>
+
+            <div class="field">
+                <p class="control">
+                    <button class="button is-success">
+                        Create Position
+                    </button>
+                </p>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

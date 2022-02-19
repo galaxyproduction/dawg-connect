@@ -22,7 +22,7 @@ def register():
             mycursor = config.mydb.cursor()
 
             sql = "INSERT INTO User (email, fname, lname, password, type) VALUES (%s, %s, %s, %s, %s)"
-            val = (email, fname, lname, encryptedPass, 'student')
+            val = (email, fname, lname, encryptedPass, 'professor')
             mycursor.execute(sql, val)
 
             config.mydb.commit()
