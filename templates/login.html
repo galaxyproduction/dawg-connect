@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+  {% if error %}
+  <article class="message is-danger">
+    <div class="message-header">
+      <p>Error</p>
+      <button class="delete" aria-label="delete"></button>
+    </div>
+    <div class="message-body">
+      {{ error }}
+    </div>
+  </article>
+  {% endif %}
+  <form method="post">
+    <div class="column is-centered">
+      <h1 class="title">Login</h1>
+      <!-- Email -->
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control is-expanded has-icons-left">
+          <input class="input" type="email" placeholder="you_email@address.com" name="email" required>
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control is-expanded has-icons-left">
+          <input class="input" type="password" placeholder="Password" name="pass" required>
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+        <p class="control">
+          <button class="button is-success">
+            Login
+          </button>
+        </p>
+        <p class="control">
+          <a href="{{ url_for('register_page.register') }}" class="button is-light">
+            Register
+          </a>
+        </p>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

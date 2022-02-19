@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+  {% if error %}
+  <article class="message is-danger">
+    <div class="message-header">
+      <p>Error</p>
+      <button class="delete" aria-label="delete"></button>
+    </div>
+    <div class="message-body">
+      {{ error }}
+    </div>
+  </article>
+  {% endif %}
+  <form method="post">
+    <div class="column is-centered">
+      <h1 class="title">Register your account</h1>
+      <h1 class="subtitle">Student account</h1>
+      <div class="field is-horizontal">
+        <div class="field-body">
+          <!-- First Name -->
+          <div class="field">
+            <label class="label">First Name</label>
+            <div class="control is-expanded has-icons-left">
+              <input class="input" type="text" placeholder="First Name" name="fname" required>
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- Last Name -->
+          <div class="field">
+            <label class="label">Last Name</label>
+            <div class="control is-expanded has-icons-left">
+              <input class="input" type="text" placeholder="Last Name" name="lname" required>
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control is-expanded has-icons-left">
+          <input class="input" type="email" placeholder="you_email@address.com" name="email" required>
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control is-expanded has-icons-left">
+          <input class="input" type="password" placeholder="Password" name="pass" required>
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="field">
+        <label class="label">Confirm Password</label>
+        <div class="control is-expanded has-icons-left">
+          <input class="input" type="password" placeholder="Confirm Password" name="confPass" required>
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <p class="control">
+          <button class="button is-success">
+            Login
+          </button>
+        </p>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

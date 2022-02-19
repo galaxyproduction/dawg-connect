@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block logout %}
+<div class="navbar-menu">
+    <div class="narbar-start"></div>
+    <div class="navbar-end">
+        <div class="navbar-item">
+            <p>Welcome, {{ name }}</p>
+        </div>
+        <div class="navbar-item">
+            <div class="buttons">
+                <a href="{{ url_for('login_page.logout') }}" class="button is-light">
+                    Log out
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

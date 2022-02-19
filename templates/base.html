@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='resources/favicon.iso') }}" type="image/x-icon">
+
+    <title>DawgConnect - {% block title %}{% endblock %} </title>
+</head>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item logo" href="index.html">
+                <i class="fa-solid fa-cube"></i>
+                DawgConnect
+            </a>
+        </div>
+        {% block logout %}{% endblock %}
+    </nav>
+    <!-- End of header -->
+
+    <!-- Main -->
+    <main class="section">
+    {% block content %}{% endblock %}
+    </main>
+    <!-- End of main -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+            &COPY; <strong>DawgConnect</strong> by <a href="https://hunterwilkins.dev">Hunter Wilkins</a>. 
+            Made for UGA Hacks 7
+            </p>
+        </div>
+    </footer>
+    <!-- End of footer -->
+</body>
+</html>
