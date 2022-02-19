@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="is-flex is-flex-direction-row is-justify-content-space-between">
-    <h1 class="title">Your Applications</h1>
+    <h1 class="title">Your Application</h1>
     {% if application |length > 0 %}
     <a class="button is-info" disabled>Create Application</a>
     {% else %}
@@ -112,6 +112,7 @@
                 <th>Course</th>
                 <th>Professor</th>
                 <th>Email</th>
+                <th>Location</th>
                 <th>Start Time</th>
                 <th>End Time</th>
             </tr>
@@ -122,6 +123,7 @@
             <td>{{ course['course'] }}</td>
             <td>{{ course['fname'] }} {{ course['lname'] }}</td>
             <td><a href="mailto:{{ course['email'] }}">{{ course['email'] }}</a></td>
+            <td>{{ course['location'] }}</td>
             <td>
                 <datetime>{{ course['startTime'] }} </datetime>
             </td>
@@ -130,7 +132,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5" style="padding: 0px">
+            <td colspan="6" style="padding: 0px">
                 <div class="popup">
                     <button class="button has-text-centered" aria-haspopup="true" aria-controls="dropdown-menu"
                         style="min-width: 100%;">

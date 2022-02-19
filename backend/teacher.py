@@ -15,6 +15,7 @@ def teacher():
     decoded_token = backend.crypt.decode_jwt(token)
     type = decoded_token['type']
     uid = decoded_token['uid']
+    name = decoded_token['first_name']
 
     if not type == 'professor':
         return redirect(url_for('login_page.login'))
@@ -29,7 +30,40 @@ def teacher():
     for position in positionResult:
         positions.append(dict(map(lambda x,y: (x, y), labels, position)))
 
-    name = decoded_token['first_name']
+
+    for position in positions:
+        labels = ('aid', 'uid', 'major', 'gpa', 'essay', 'resume', 'firstPick', 'secondPick', 'thirdPick', 'uid', 'fname', 'lname', 'email')
+        mycursor = config.mydb.cursor()
+
+        mycursor.execute(f"SELECT * FROM `Application` app INNER JOIN User user ON app.uid=user.uid WHERE app.firstPick={position['pid']}")
+
+        firstPickResults = mycursor.fetchall()
+
+        firstPicks = []
+        for firstPick in firstPickResults:
+            firstPicks.append(dict(map(lambda x,y: (x, y), labels, firstPick)))
+
+        mycursor = config.mydb.cursor()
+
+        mycursor.execute(f"SELECT * FROM `Application` app INNER JOIN User user ON app.uid=user.uid WHERE app.secondPick={position['pid']}")
+
+        secondPickResults = mycursor.fetchall()
+
+        secondPicks = []
+        for secondPick in secondPickResults:
+            secondPicks.append(dict(map(lambda x,y: (x, y), labels, secondPick)))
+
+        mycursor = config.mydb.cursor()
+
+        mycursor.execute(f"SELECT * FROM `Application` app INNER JOIN User user ON app.uid=user.uid WHERE app.thirdPick={position['pid']}")
+
+        thirdPickResults = mycursor.fetchall()
+
+        thirdPicks = []
+        for thirdPick in thirdPickResults:
+            thirdPicks.append(dict(map(lambda x,y: (x, y), labels, thirdPick)))
+
+        position['students'] = firstPicks + secondPicks + thirdPicks
 
     return render_template('teacher.html', name=name, positions=positions)
 
