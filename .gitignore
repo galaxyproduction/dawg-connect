@@ -1,6 +1,5 @@
 .env
 .ssh
-
 __pycache__
-
 backend/__pycache__
+static/resumes

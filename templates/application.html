@@ -1,0 +1,167 @@
+{% extends 'user.html' %}
+
+{% block title %}Application{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+    {% if error %}
+    <article class="message is-danger">
+        <div class="message-header">
+            <p>Error</p>
+            <button class="delete" aria-label="delete"></button>
+        </div>
+        <div class="message-body">
+            {{ error }}
+        </div>
+    </article>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">
+        <div class="column is-centered">
+            <h1 class="title">PLA Application</h1>
+            <div class="field is-horizontal">
+                <div class="field-body">
+                    <div class="field">
+                        <label class="label">Major</label>
+                        <div class="control is-expanded has-icons-left">
+                            <input class="input" type="text" placeholder="Computer Science" name="major" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-graduation-cap"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">GPA</label>
+                        <div class="control is-expanded has-icons-left">
+                            <input class="input" type="text" placeholder="3.00" name="gpa" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-award"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Resume</label>
+                <div class="control is-expanded has-icons-left">
+                    <input class="input" type="file" name="resume" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-file-pdf"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div id="skillsDiv">
+                <div class="field">
+                    <label class="label">Skills</label>
+                    <div class="control is-expanded has-icons-left">
+                        <input class="input" type="text" placeholder="Your skill" name="skills">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-wand-magic-sparkles"></i>
+                        </span>
+                    </div>
+                </div>
+                <a id="skills" class="button is-ghost">Add Skill</a>
+            </div>
+
+            <div class="field">
+                <label class="label">Your 1st Course Pick</label>
+                <div class="select" name="firstPick" required>
+                    <select name="firstPick" required>
+                        {% for course in courses %}
+                        <option value="{{ course[0] }}">{{ course[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Your 2nd Course Pick</label>
+                <div class="select">
+                    <select name="secondPick" required>
+                        {% for course in courses %}
+                        <option value="{{ course[0] }}">{{ course[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Your 3rd Course Pick</label>
+                <div class="select">
+                    <select name="thirdPick" required>
+                        {% for course in courses %}
+                        <option value="{{ course[0] }}">{{ course[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <label class="label">
+                        Short Essay
+                    </label>
+                    <p>What inspires you the most about becoming a PLA?</p>
+                    <textarea class="textarea is-large" placeholder="Write a short essay here" name="essay"
+                        required></textarea>
+                </div>
+            </div>
+
+            <div class="field">
+                <p class="control">
+                    <button class="button is-success">
+                        Submit Application
+                    </button>
+                </p>
+            </div>
+        </div>
+    </form>
+    <script>
+        //DOMContentLoaded - it fires when initial HTML document has been completely loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            const skillDiv = document.getElementById('skillsDiv')
+            const skillButton = document.getElementById('skills')      
+
+            // <div class="field">
+            //         <label class="label">Skills</label>
+            //         <div class="control is-expanded has-icons-left">
+            //             <input class="input" type="text" placeholder="Your skill" name="skills">
+            //             <span class="icon is-small is-left">
+            //                 <i class="fas fa-wand-magic-sparkles"></i>
+            //             </span>
+            //         </div>
+            // </div>
+            skillButton.addEventListener('click', function() {
+                const icon = document.createElement('i')
+                icon.classList = "fas fa-wand-magic-sparkles";
+
+                const span = document.createElement('span')
+                span.classList = "icon is-small is-left"
+
+                span.append(icon)
+
+                const input = document.createElement('input')
+                input.classList = "input"
+                input.type = "text"
+                input.placeholder = "Your skill"
+                input.name = "skills"
+
+                const control = document.createElement('div')
+                control.classList = "control is-expanded has-icons-left"
+
+                control.append(input)
+                control.append(span)
+
+                const field = document.createElement('div')
+                field.classList = "field"
+
+                field.append(control)
+                
+                skillDiv.insertBefore(field, skillButton)
+            })      
+        });     
+    </script>
+</div>
+{% endblock %}
