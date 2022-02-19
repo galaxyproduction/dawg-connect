@@ -33,7 +33,7 @@
                 </div>
                 <div>
                     <strong>Email</strong>
-                    <p><a href="mailto:{{ application['gpa'] }}">{{ application['email'] }}</a></p>
+                    <p><a href="mailto:{{ application['email'] }}">{{ application['email'] }}</a></p>
                 </div>
                 <div>
                     <strong>Resume</strong>
@@ -84,6 +84,76 @@
             </div>
         </div>
     </div>
+</div>
+{% endif %}
+
+<div class="is-flex is-flex-direction-row is-justify-content-space-between">
+    <h1 class="title">PLA Job Postings</h1>
+</div>
+<hr>
+
+<div class="section">
+    <form method="get">
+        <div class="field has-addons">
+            <div class="control" style="width: 100%">
+                <input class="input" type="text" placeholder="Search by Professor, Course, Email, or Description" name="searchBy">
+            </div>
+            <div class="control">
+                <button class="button is-info">
+                    Search
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <table class="table" style="width: 100%">
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>Professor</th>
+                <th>Email</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+            </tr>
+        </thead>
+
+        {% for course in courses %}
+        <tr>
+            <td>{{ course['course'] }}</td>
+            <td>{{ course['fname'] }} {{ course['lname'] }}</td>
+            <td><a href="mailto:{{ course['email'] }}">{{ course['email'] }}</a></td>
+            <td>
+                <datetime>{{ course['startTime'] }} </datetime>
+            </td>
+            <td>
+                <datetime>{{ course['endTime'] }} </datetime>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" style="padding: 0px">
+                <div class="popup">
+                    <button class="button has-text-centered" aria-haspopup="true" aria-controls="dropdown-menu"
+                        style="min-width: 100%;">
+                        <span class="popup-text">Show More</span>
+                        <span class="icon is-small">
+                            <i class="popup-icon fas fa-angle-down" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                    <div class="popup-menu">
+                        <div class="card-content">
+                            <div>
+                                <strong>Job Description</strong>
+                                <div style="white-space: pre-line;">
+                                    {{ course['description'].decode() }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 
     <script>
         //DOMContentLoaded - it fires when initial HTML document has been completely loaded
@@ -110,5 +180,4 @@
         });        
     </script>
 </div>
-{% endif %}
 {% endblock %}

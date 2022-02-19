@@ -1,4 +1,5 @@
 import os
+from re import search
 import config
 import backend.crypt
 from flask import Blueprint, render_template, abort, make_response, request, redirect, url_for, g
@@ -63,7 +64,25 @@ def student():
 
         application['skills'] = list(map(lambda tup: tup[2], skillResult))
 
-    return render_template('student.html', name=name, application=application)
+        sql = f"SELECT * FROM Position pos INNER JOIN User user on pos.professor = user.uid"
+        if request.args.get('searchBy'):
+            searchBy = request.args.get('searchBy')
+            sql = f"""
+                SELECT * FROM Position pos INNER JOIN User user on pos.professor = user.uid WHERE
+                user.fname LIKE '%{searchBy}%' OR user.lname LIKE '%{searchBy}%' OR user.email LIKE '%{searchBy}%'
+                OR pos.course LIKE '%{searchBy}%' OR pos.description LIKE '%{searchBy}%'
+                """
+
+        mycursor.execute(sql)
+        courseResults = mycursor.fetchall()
+
+        labels = ('pid', 'professor', 'course', 'description', 'location', 'startTime', 'endTime', 'uid', 'fname', 'lname', 'email')
+        courses = []
+        for course in courseResults:
+            courses.append(dict(map(lambda x,y: (x, y), labels, course)))
+
+
+    return render_template('student.html', name=name, application=application, courses=courses)
 
 @student_page.route('/account/application', methods=['GET', 'POST'])
 def application():
