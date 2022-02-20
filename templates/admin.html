@@ -1,0 +1,250 @@
+{% extends 'user.html' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+<div class="is-flex is-flex-direction-row is-justify-content-space-between">
+    <h1 class="title">Admin Dashboard</h1>
+</div>
+<hr>
+<div class="section">
+    <div class="card">
+        <div class="card-content">
+            <nav class="level">
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">PLA Job Postings</p>
+                        <p class="title">{{ stats['jobs'] }}</p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">PLA Applicants</p>
+                        <p class="title">{{ stats['applicants']}}</p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Matches Made</p>
+                        <p class="title">{{ 3 * stats['applicants']}}</p>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="is-flex is-flex-direction-row is-justify-content-space-between">
+    <h1 class="title">Job Postings</h1>
+</div>
+<hr>
+
+<div class="section" style="padding-left: 0; padding-right: 0; padding-bottom: 0">
+    <form method="get">
+        <div class="field has-addons">
+            <div class="control" style="width: 100%">
+                <input class="input" type="text" placeholder="Search by Professor, Course, Email, or Description"
+                    name="jobSearchBy">
+            </div>
+            <div class="control">
+                <button class="button is-info">
+                    Search
+                </button>
+            </div>
+        </div>
+    </form>
+    <table class="table" style="width: 100%">
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>Professor</th>
+                <th>Email</th>
+                <th>Location</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+            </tr>
+        </thead>
+
+        {% for course in courses %}
+        <tr>
+            <td>{{ course['course'] }}</td>
+            <td>{{ course['fname'] }} {{ course['lname'] }}</td>
+            <td><a href="mailto:{{ course['email'] }}">{{ course['email'] }}</a></td>
+            <td>{{ course['location'] }}</td>
+            <td>
+                <datetime>{{ course['startTime'] }} </datetime>
+            </td>
+            <td>
+                <datetime>{{ course['endTime'] }} </datetime>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6" style="padding: 0px">
+                <div class="popup">
+                    <button class="button has-text-centered" aria-haspopup="true" aria-controls="dropdown-menu"
+                        style="min-width: 100%;">
+                        <span class="popup-text">Show More</span>
+                        <span class="icon is-small">
+                            <i class="popup-icon fas fa-angle-down" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                    <div class="popup-menu">
+                        <div class="card-content">
+                            <div>
+                                <strong>Job Description</strong>
+                                <div style="white-space: pre-line;">
+                                    {{ course['description'].decode() }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="is-flex is-flex-direction-row is-justify-content-space-between" style="padding-top: 1rem">
+    <h1 class="title">PLA Applicants</h1>
+</div>
+<hr>
+
+<div class="section" style="padding-left: 0; padding-right: 0; padding-bottom: 0">
+    <form method="get">
+        <div class="field has-addons">
+            <div class="control" style="width: 100%">
+                <input class="input" type="text" placeholder="Search by Student's name or Major" name="studentSearchBy">
+            </div>
+            <div class="control">
+                <button class="button is-info">
+                    Search
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <table class="table" style="width: 100%">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Major</th>
+                <th>GPA</th>
+                <th>Email</th>
+                <th>Resume</th>
+            </tr>
+        </thead>
+
+        {% for student in students %}
+        <tr>
+            <td>{{ student['fname'] }} {{ student['lname'] }}</td>
+            <td>{{ student['major'] }}</td>
+            <td>{{ student['gpa'] }}</td>
+            <td><a href="mailto:{{ student['email'] }}">{{ student['email'] }}</a></td>
+            <td>
+                <p><a href="{{ url_for('static', filename='resumes/' + student['resume'])}}" download> {{
+                        student['resume'] }}</a></p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" style="padding: 0px">
+                <div class="popup">
+                    <button class="button has-text-centered" aria-haspopup="true" aria-controls="dropdown-menu"
+                        style="min-width: 100%;">
+                        <span class="popup-text">Show More</span>
+                        <span class="icon is-small">
+                            <i class="popup-icon fas fa-angle-down" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                    <div class="popup-menu">
+                        <div class="card-content">
+                            <div class="card-content">
+                                <div>
+                                    <strong>Essay</strong>
+                                    <div style="white-space: pre-line;">
+                                        {{ student['essay'].decode() }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="is-flex is-flex-direction-row is-justify-content-space-between" style="padding-top: 1rem">
+    <h1 class="title">Professor Invite Link</h1>
+</div>
+<hr>
+<div class="section" style="padding-left: 0; padding-right: 0; padding-bottom: 0">
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title">
+                Professor Invite Link
+            </p>
+        </header>
+        <div class="card-content">
+            <code
+                style="width: 100%; display: block"><a id="code">Click `Generate Link` to generate a temporary registration link</a></code>
+            <p class="is-small">
+                (Note: This link is only active for 3 hours)
+            </p>
+        </div>
+
+        <footer class="card-footer" style="padding: 0 !important">
+            <a id="generate" class="button is-dark card-footer-item">Generate link</a>
+        </footer>
+    </div>
+</div>
+
+<script>
+    //DOMContentLoaded - it fires when initial HTML document has been completely loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        // querySelector - it returns the element within the document that matches the specified selector
+        var popup = document.querySelectorAll('.popup').forEach(item => {
+            item.addEventListener('click', function (event) {
+
+                event.stopPropagation();
+
+                item.classList.toggle('is-showing');
+                buttonText = item.querySelector('.popup-text');
+                buttonIcon = item.querySelector('.popup-icon');
+
+                if (buttonText.textContent == 'Show Less') {
+                    buttonText.textContent = 'Show More';
+                    buttonIcon.className = "popup-icon fas fa-angle-down";
+                } else {
+                    buttonText.textContent = 'Show Less';
+                    buttonIcon.className = "popup-icon fas fa-angle-up";
+                }
+            });
+        });
+    });
+
+    var generate = document.getElementById('generate');
+    var code = document.getElementById('code');
+
+    generate.addEventListener('click', function () {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < 20; i++) {
+            result += characters.charAt(Math.floor(Math.random() *
+                charactersLength));
+        }
+
+        code.textContent = 'http://localhost:5000/register/' + result;
+        code.href = 'http://localhost:5000/register/' + result;
+
+        fetch("{{ url_for('admin_page.generate_link')}}", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 'url': result})
+        });
+    });
+</script>
+</div>
+{% endblock %}

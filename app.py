@@ -7,6 +7,7 @@ from backend.login import login_page
 from backend.register import register_page
 from backend.student import student_page
 from backend.teacher import teacher_page
+from backend.admin import admin_page
 
 UPLOAD_FOLDER = './resumes'
 
@@ -17,6 +18,7 @@ app.register_blueprint(login_page)
 app.register_blueprint(register_page)
 app.register_blueprint(student_page)
 app.register_blueprint(teacher_page)
+app.register_blueprint(admin_page)
 
 @app.route('/')
 def index():

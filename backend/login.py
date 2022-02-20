@@ -29,6 +29,9 @@ def login():
             elif type == 'professor':
                 resp = make_response(redirect(url_for('teacher_page.teacher')))
                 resp.set_cookie('jwt', token)
+            else:
+                resp = make_response(redirect(url_for('admin_page.admin')))
+                resp.set_cookie('jwt', token)
 
             return resp
         else:
