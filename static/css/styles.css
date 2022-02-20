@@ -1,5 +1,5 @@
 body {
-    --background: #edf6f9;
+    --background: #F4F4F6;
     --primary-dark: #006d77;
     --primary-light: #83c5be;
     --secondary-dark: #e29578;
@@ -9,7 +9,11 @@ body {
     min-height: 100vh;
     flex-direction: column;
 
-    background-color: var(--background);
+    background-color: var(--background) !important;
+}
+
+.section {
+    background-color: var(--background) !important;
 }
 
 .logo {

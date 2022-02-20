@@ -75,7 +75,7 @@ def teacher_register(temp_url):
             config.mydb.commit()
 
             token = backend.crypt.encode_jwt(
-                mycursor.lastrowid, fname, 'teacher')
+                mycursor.lastrowid, fname, 'professor')
 
             resp = make_response(redirect(url_for('teacher_page.teacher')))
             resp.set_cookie('jwt', token)

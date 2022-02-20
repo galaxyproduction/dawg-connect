@@ -93,7 +93,7 @@ def position():
 
         mycursor = config.mydb.cursor()
 
-        sql = "INSERT INTO Position (professor, course, description, location, startTime, endTime) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        sql = "INSERT INTO Position (professor, course, description, location, startTime, endTime) VALUES (%s, %s, %s, %s, %s, %s)"
         val = (uid, subject + course, description, location, startTime, endTime)
         mycursor.execute(sql, val)
 
